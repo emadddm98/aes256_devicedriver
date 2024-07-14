@@ -1,0 +1,9 @@
+modprobe tun tap
+ip link add br0 type bridge
+#ip link set dev enp2s0 master br0
+ip link set dev br0 up
+
+qemu-system-x86_64 [...] \
+    -device virtio-net-pci,netdev=user0,mac=XX:XX:XX:XX:XX:XX \
+    -netdev bridge,id=user0,br=br0 \
+    [...]
